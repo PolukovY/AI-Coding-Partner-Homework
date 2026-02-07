@@ -21,6 +21,7 @@ public enum DeviceType {
 
     @JsonCreator
     public static DeviceType fromValue(String value) {
+        if (value == null) throw new IllegalArgumentException("Device type cannot be null");
         for (DeviceType type : values()) {
             if (type.value.equalsIgnoreCase(value) || type.name().equalsIgnoreCase(value)) {
                 return type;

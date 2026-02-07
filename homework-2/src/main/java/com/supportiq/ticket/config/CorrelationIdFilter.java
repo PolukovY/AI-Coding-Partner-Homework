@@ -16,6 +16,8 @@ public class CorrelationIdFilter implements Filter {
 
     private static final String CORRELATION_ID_HEADER = "X-Correlation-ID";
     private static final String CORRELATION_ID_MDC = "correlationId";
+    private static final int MAX_CORRELATION_ID_LENGTH = 64;
+    private static final String CORRELATION_ID_PATTERN = "[a-zA-Z0-9\\-]+";
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -24,7 +26,9 @@ public class CorrelationIdFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String correlationId = httpRequest.getHeader(CORRELATION_ID_HEADER);
-        if (correlationId == null || correlationId.isBlank()) {
+        if (correlationId == null || correlationId.isBlank()
+                || correlationId.length() > MAX_CORRELATION_ID_LENGTH
+                || !correlationId.matches(CORRELATION_ID_PATTERN)) {
             correlationId = UUID.randomUUID().toString();
         }
 

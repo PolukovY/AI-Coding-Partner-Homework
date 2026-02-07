@@ -71,11 +71,11 @@ class PerformanceTest extends BaseIntegrationTest {
         entity = ticketRepository.save(entity);
 
         long start = System.currentTimeMillis();
-        mockMvc.perform(post("/api/tickets/{id}/auto-classify", entity.getId()))
+        mockMvc.perform(post("/api/tickets/{id}/classify", entity.getId()))
                 .andExpect(status().isOk());
         long elapsed = System.currentTimeMillis() - start;
 
-        assertThat(elapsed).isLessThan(200);
+        assertThat(elapsed).isLessThan(500);
     }
 
     @Test

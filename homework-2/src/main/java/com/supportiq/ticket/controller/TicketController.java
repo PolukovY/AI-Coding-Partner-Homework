@@ -73,7 +73,7 @@ public class TicketController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{id}/auto-classify")
+    @PostMapping("/{id}/classify")
     public ResponseEntity<ClassificationResultDto> classifyTicket(@PathVariable UUID id) {
         return ResponseEntity.ok(ticketService.classifyTicket(id));
     }

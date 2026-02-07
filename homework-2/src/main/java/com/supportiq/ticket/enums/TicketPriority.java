@@ -22,6 +22,7 @@ public enum TicketPriority {
 
     @JsonCreator
     public static TicketPriority fromValue(String value) {
+        if (value == null) throw new IllegalArgumentException("Priority cannot be null");
         for (TicketPriority priority : values()) {
             if (priority.value.equalsIgnoreCase(value) || priority.name().equalsIgnoreCase(value)) {
                 return priority;

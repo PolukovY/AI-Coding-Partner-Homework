@@ -58,7 +58,7 @@ public class TicketEntity {
     @Embedded
     private TicketMetadata metadata;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "ticket_tags", joinColumns = @JoinColumn(name = "ticket_id"))
     @Column(name = "tag")
     private Set<String> tags = new HashSet<>();
@@ -69,7 +69,7 @@ public class TicketEntity {
     @Column(name = "classification_reasoning", columnDefinition = "TEXT")
     private String classificationReasoning;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "ticket_classification_keywords", joinColumns = @JoinColumn(name = "ticket_id"))
     @Column(name = "keyword")
     private List<String> classificationKeywords = new ArrayList<>();

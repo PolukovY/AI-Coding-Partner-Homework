@@ -6,6 +6,7 @@ import com.supportiq.ticket.entity.TicketEntity;
 import com.supportiq.ticket.entity.TicketMetadata;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 @Component
@@ -45,10 +46,10 @@ public class TicketMapper {
         dto.setCategory(entity.getCategory());
         dto.setPriority(entity.getPriority());
         dto.setStatus(entity.getStatus());
-        dto.setTags(entity.getTags());
+        dto.setTags(new HashSet<>(entity.getTags()));
         dto.setClassificationConfidence(entity.getClassificationConfidence());
         dto.setClassificationReasoning(entity.getClassificationReasoning());
-        dto.setClassificationKeywords(entity.getClassificationKeywords());
+        dto.setClassificationKeywords(new ArrayList<>(entity.getClassificationKeywords()));
         dto.setLastClassifiedAt(entity.getLastClassifiedAt());
         dto.setResolvedAt(entity.getResolvedAt());
         dto.setAssignedTo(entity.getAssignedTo());

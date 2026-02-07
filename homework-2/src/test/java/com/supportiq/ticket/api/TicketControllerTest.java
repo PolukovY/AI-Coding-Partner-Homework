@@ -147,7 +147,7 @@ class TicketControllerTest extends BaseIntegrationTest {
         saved.setDescription("My password is not working and I am locked out");
         ticketRepository.save(saved);
 
-        mockMvc.perform(post("/api/tickets/{id}/auto-classify", saved.getId()))
+        mockMvc.perform(post("/api/tickets/{id}/classify", saved.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.category").exists())
                 .andExpect(jsonPath("$.priority").exists())

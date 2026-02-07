@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -82,14 +83,17 @@ public class ImportService {
                     ClassificationResult classification = classificationService.classify(
                             request.getSubject(), request.getDescription());
                     request.setCategory(classification.category());
-                    request.setPriority(classification.priority());
+                    if (request.getPriority() == null) {
+                        request.setPriority(classification.priority());
+                    }
                 }
 
                 TicketDto ticket = transactionHelper.saveTicket(request);
                 createdTickets.add(ticket);
             } catch (Exception e) {
-                log.warn("Failed to import record {}: {}", i, e.getMessage());
-                failures.add(new ImportFailureDto(i, List.of(e.getMessage())));
+                String message = Optional.ofNullable(e.getMessage()).orElse(e.toString());
+                log.warn("Failed to import record {}: {}", i, message);
+                failures.add(new ImportFailureDto(i, List.of(message)));
             }
         }
 

@@ -23,6 +23,7 @@ public enum Source {
 
     @JsonCreator
     public static Source fromValue(String value) {
+        if (value == null) throw new IllegalArgumentException("Source cannot be null");
         for (Source source : values()) {
             if (source.value.equalsIgnoreCase(value) || source.name().equalsIgnoreCase(value)) {
                 return source;

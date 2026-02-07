@@ -39,7 +39,7 @@ class WorkflowIntegrationTest extends BaseIntegrationTest {
         String id = objectMapper.readTree(createResult.getResponse().getContentAsString()).get("id").asText();
 
         // 2. Classify ticket
-        mockMvc.perform(post("/api/tickets/{id}/auto-classify", id))
+        mockMvc.perform(post("/api/tickets/{id}/classify", id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.category").value("account_access"));
 

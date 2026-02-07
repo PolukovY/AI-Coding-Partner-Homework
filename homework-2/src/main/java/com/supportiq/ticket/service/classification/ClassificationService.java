@@ -9,28 +9,32 @@ import java.util.*;
 @Service
 public class ClassificationService {
 
-    private static final Map<TicketCategory, List<String>> CATEGORY_KEYWORDS = Map.of(
-            TicketCategory.ACCOUNT_ACCESS, List.of(
-                    "login", "password", "reset", "locked", "account", "access", "sign in", "sign-in",
-                    "authentication", "credentials", "two-factor", "2fa", "mfa", "logout", "session"
-            ),
-            TicketCategory.TECHNICAL_ISSUE, List.of(
-                    "error", "crash", "bug", "not working", "broken", "slow", "timeout", "freeze",
-                    "exception", "failure", "down", "outage", "unresponsive", "load", "performance"
-            ),
-            TicketCategory.BILLING_QUESTION, List.of(
-                    "billing", "invoice", "charge", "payment", "subscription", "refund", "price",
-                    "cost", "plan", "upgrade", "downgrade", "cancel", "receipt", "credit"
-            ),
-            TicketCategory.FEATURE_REQUEST, List.of(
-                    "feature", "request", "suggestion", "improve", "enhancement", "add", "wish",
-                    "would like", "could you", "new functionality", "integration", "support for"
-            ),
-            TicketCategory.BUG_REPORT, List.of(
-                    "bug", "defect", "issue", "unexpected", "incorrect", "wrong", "doesn't work",
-                    "not displaying", "missing", "broken", "glitch", "regression", "reproduce"
-            )
-    );
+    private static final Map<TicketCategory, List<String>> CATEGORY_KEYWORDS;
+
+    static {
+        Map<TicketCategory, List<String>> catMap = new LinkedHashMap<>();
+        catMap.put(TicketCategory.ACCOUNT_ACCESS, List.of(
+                "login", "password", "reset", "locked", "account", "access", "sign in", "sign-in",
+                "authentication", "credentials", "two-factor", "2fa", "mfa", "logout", "session"
+        ));
+        catMap.put(TicketCategory.TECHNICAL_ISSUE, List.of(
+                "error", "crash", "bug", "not working", "broken", "slow", "timeout", "freeze",
+                "exception", "failure", "down", "outage", "unresponsive", "load", "performance"
+        ));
+        catMap.put(TicketCategory.BILLING_QUESTION, List.of(
+                "billing", "invoice", "charge", "payment", "subscription", "refund", "price",
+                "cost", "plan", "upgrade", "downgrade", "cancel", "receipt", "credit"
+        ));
+        catMap.put(TicketCategory.FEATURE_REQUEST, List.of(
+                "feature", "request", "suggestion", "improve", "enhancement", "add", "wish",
+                "would like", "could you", "new functionality", "integration", "support for"
+        ));
+        catMap.put(TicketCategory.BUG_REPORT, List.of(
+                "bug", "defect", "issue", "unexpected", "incorrect", "wrong", "doesn't work",
+                "not displaying", "missing", "broken", "glitch", "regression", "reproduce"
+        ));
+        CATEGORY_KEYWORDS = Collections.unmodifiableMap(catMap);
+    }
 
     private static final Map<TicketPriority, List<String>> PRIORITY_KEYWORDS;
 
@@ -53,7 +57,7 @@ public class ClassificationService {
     }
 
     public ClassificationResult classify(String subject, String description) {
-        String text = (subject + " " + description).toLowerCase();
+        String text = (Objects.toString(subject, "") + " " + Objects.toString(description, "")).toLowerCase();
 
         Map<TicketCategory, List<String>> categoryMatches = new LinkedHashMap<>();
         for (var entry : CATEGORY_KEYWORDS.entrySet()) {

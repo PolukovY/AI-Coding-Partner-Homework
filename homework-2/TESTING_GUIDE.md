@@ -89,13 +89,13 @@ All fixture files live in `src/test/resources/fixtures/`. Each format (CSV, JSON
 | Class | Tests | Description |
 |---|---|---|
 | `ClassificationServiceTest` | 12 | Validates the keyword-based `ClassificationService` in isolation (no Spring context). Covers all six ticket categories (`ACCOUNT_ACCESS`, `TECHNICAL_ISSUE`, `BILLING_QUESTION`, `FEATURE_REQUEST`, `BUG_REPORT`, `OTHER`), priority assignment (`URGENT`, `HIGH`, `MEDIUM`, `LOW`), confidence scoring, confidence cap at 1.0, and reasoning output. |
-| `TicketValidationTest` | 9 | Exercises Bean Validation (`jakarta.validation`) constraints on `CreateTicketRequest`. Tests blank/null customer name, invalid/blank email, blank subject, blank description, subject exceeding 500 characters, and description exceeding 10,000 characters. Uses a standalone `Validator` without Spring. |
+| `TicketValidationTest` | 9 | Exercises Bean Validation (`jakarta.validation`) constraints on `CreateTicketRequest`. Tests blank/null customer name, invalid/blank email, blank subject, blank description, subject exceeding 200 characters, and description exceeding 10,000 characters. Uses a standalone `Validator` without Spring. |
 
 ### Integration Tests
 
 | Class | Tests | Description |
 |---|---|---|
-| `TicketControllerTest` | 11 | Full REST API coverage for the `/api/tickets` resource. Tests CRUD operations (create, get, list, update, delete), input validation error responses (400), not-found responses (404), category filtering, and the `/api/tickets/{id}/classify` classification endpoint. |
+| `TicketControllerTest` | 11 | Full REST API coverage for the `/api/tickets` resource. Tests CRUD operations (create, get, list, update, delete), input validation error responses (400), not-found responses (404), category filtering, and the `POST /api/tickets/{id}/classify` classification endpoint. |
 | `CsvImportTest` | 6 | Tests the CSV import pipeline via `POST /api/tickets/import` with `multipart/form-data`. Covers valid import, invalid records, malformed file (400), mixed valid/invalid, empty file, and auto-classification on import (`autoClassify=true`). |
 | `JsonImportTest` | 5 | Same import scenarios as CSV but with `application/json` fixtures. Covers valid, invalid, malformed (400), mixed, and empty datasets. |
 | `XmlImportTest` | 5 | Same import scenarios as CSV but with `application/xml` fixtures. Covers valid, invalid, malformed (400), mixed, and empty datasets. |
@@ -110,7 +110,7 @@ All fixture files live in `src/test/resources/fixtures/`. Each format (CSV, JSON
 
 | Class | Tests | Description |
 |---|---|---|
-| `PerformanceTest` | 5 | Response-time assertions guarding critical endpoints. Tagged with `@Tag("performance")` and excluded from the default Maven Surefire run (`<excludedGroups>performance</excludedGroups>`). Thresholds: create ticket < 500 ms, list 100 tickets < 1000 ms, classify ticket < 200 ms, CSV import (5 records) < 2000 ms, filtered query over 50 records < 500 ms. |
+| `PerformanceTest` | 5 | Response-time assertions guarding critical endpoints. Tagged with `@Tag("performance")` and excluded from the default Maven Surefire run (`<excludedGroups>performance</excludedGroups>`). Thresholds: create ticket < 500 ms, list 100 tickets < 1000 ms, classify ticket < 500 ms, CSV import (5 records) < 2000 ms, filtered query over 50 records < 500 ms. |
 
 ---
 

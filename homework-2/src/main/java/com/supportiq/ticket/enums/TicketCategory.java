@@ -24,6 +24,7 @@ public enum TicketCategory {
 
     @JsonCreator
     public static TicketCategory fromValue(String value) {
+        if (value == null) throw new IllegalArgumentException("Category cannot be null");
         for (TicketCategory category : values()) {
             if (category.value.equalsIgnoreCase(value) || category.name().equalsIgnoreCase(value)) {
                 return category;

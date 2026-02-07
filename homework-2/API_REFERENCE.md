@@ -34,7 +34,7 @@ Creates a new support ticket.
 |------------------|----------|----------|--------------------------------------|
 | `customer_name`  | string   | Yes      | Max 255 characters                   |
 | `customer_email` | string   | Yes      | Must be a valid email                |
-| `subject`        | string   | Yes      | Max 500 characters                   |
+| `subject`        | string   | Yes      | 1-200 characters                     |
 | `description`    | string   | Yes      | Max 10,000 characters                |
 | `category`       | string   | No       | See [TicketCategory](#ticketcategory) |
 | `priority`       | string   | No       | See [TicketPriority](#ticketpriority) |
@@ -291,7 +291,7 @@ Updates an existing ticket. All fields are optional; only provided fields are up
 |------------------|----------|----------|--------------------------------------|
 | `customer_name`  | string   | No       | Max 255 characters                   |
 | `customer_email` | string   | No       | Must be a valid email                |
-| `subject`        | string   | No       | Max 500 characters                   |
+| `subject`        | string   | No       | 1-200 characters                     |
 | `description`    | string   | No       | Max 10,000 characters                |
 | `category`       | string   | No       | See [TicketCategory](#ticketcategory) |
 | `priority`       | string   | No       | See [TicketPriority](#ticketpriority) |

@@ -61,31 +61,37 @@ public class CsvImportParser {
         request.setSubject(getField(row, headerMap, "subject"));
         request.setDescription(getField(row, headerMap, "description"));
 
-        String category = getField(row, headerMap, "category");
-        if (category != null && !category.isBlank()) {
-            request.setCategory(TicketCategory.fromValue(category));
-        }
+        try {
+            String category = getField(row, headerMap, "category");
+            if (category != null && !category.isBlank()) {
+                request.setCategory(TicketCategory.fromValue(category));
+            }
 
-        String priority = getField(row, headerMap, "priority");
-        if (priority != null && !priority.isBlank()) {
-            request.setPriority(TicketPriority.fromValue(priority));
-        }
+            String priority = getField(row, headerMap, "priority");
+            if (priority != null && !priority.isBlank()) {
+                request.setPriority(TicketPriority.fromValue(priority));
+            }
 
-        String source = getField(row, headerMap, "source");
-        if (source != null && !source.isBlank()) {
-            request.setSource(Source.fromValue(source));
-        }
+            String source = getField(row, headerMap, "source");
+            if (source != null && !source.isBlank()) {
+                request.setSource(Source.fromValue(source));
+            }
 
-        request.setBrowser(getField(row, headerMap, "browser"));
+            request.setBrowser(getField(row, headerMap, "browser"));
 
-        String deviceType = getField(row, headerMap, "device_type");
-        if (deviceType != null && !deviceType.isBlank()) {
-            request.setDeviceType(DeviceType.fromValue(deviceType));
+            String deviceType = getField(row, headerMap, "device_type");
+            if (deviceType != null && !deviceType.isBlank()) {
+                request.setDeviceType(DeviceType.fromValue(deviceType));
+            }
+        } catch (IllegalArgumentException e) {
+            throw new MalformedImportFileException("Invalid enum value in CSV row: " + e.getMessage());
         }
 
         String tags = getField(row, headerMap, "tags");
         if (tags != null && !tags.isBlank()) {
-            request.setTags(new HashSet<>(Arrays.asList(tags.split(";"))));
+            request.setTags(new HashSet<>(Arrays.stream(tags.split(";"))
+                    .map(String::trim)
+                    .toList()));
         }
 
         return request;
