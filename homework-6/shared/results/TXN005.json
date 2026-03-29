@@ -1,0 +1,16 @@
+{
+  "transaction_id": "TXN005",
+  "status": "validated",
+  "amount": "75000.00",
+  "currency": "USD",
+  "transaction_type": "wire_transfer",
+  "fraud_risk_score": 8,
+  "fraud_risk_level": "HIGH",
+  "fraud_flags": [
+    "AMOUNT_VERY_HIGH",
+    "WIRE_TRANSFER"
+  ],
+  "rejection_reason": null,
+  "rejection_detail": null,
+  "processed_at": "2026-03-29T19:34:29Z"
+}

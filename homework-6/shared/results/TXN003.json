@@ -1,0 +1,13 @@
+{
+  "transaction_id": "TXN003",
+  "status": "validated",
+  "amount": "9999.99",
+  "currency": "USD",
+  "transaction_type": "transfer",
+  "fraud_risk_score": 0,
+  "fraud_risk_level": "LOW",
+  "fraud_flags": [],
+  "rejection_reason": null,
+  "rejection_detail": null,
+  "processed_at": "2026-03-29T19:34:29Z"
+}
