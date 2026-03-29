@@ -1,0 +1,24 @@
+{
+  "source_agent": "transaction_validator",
+  "target_agent": "results",
+  "message_type": "transaction",
+  "data": {
+    "transaction_id": "TXN006",
+    "timestamp": "2026-03-16T10:05:00Z",
+    "source_account": "ACC-1006",
+    "destination_account": "ACC-7700",
+    "amount": "200.00",
+    "currency": "XYZ",
+    "transaction_type": "transfer",
+    "description": "Test payment",
+    "metadata": {
+      "channel": "online",
+      "country": "US"
+    },
+    "status": "rejected",
+    "rejection_reason": "INVALID_CURRENCY",
+    "rejection_detail": "Currency 'XYZ' not in whitelist ['AUD', 'CAD', 'CHF', 'DKK', 'EUR', 'GBP', 'JPY', 'NOK', 'NZD', 'SEK', 'USD']"
+  },
+  "message_id": "129de3f3-d9d6-488e-9116-f5d1feac7337",
+  "timestamp": "2026-03-29T19:34:29Z"
+}
